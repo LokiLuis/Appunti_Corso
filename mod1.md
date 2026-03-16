@@ -113,14 +113,6 @@ Piccola osservazione finale, giusto per restare sinceri: i sistemi informatici p
 
 
 
-# Struttura dei 3 lab
-
-| Lab   | Teoria prima del lab                   | 
-| ----- | -------------------------------------- | 
-| LAB01 | filesystem e comandi base              | 
-| LAB02 | testo, redirection, pipe, log analysis | 
-| LAB03 | permessi, utenti, processi, segnali    | 
----
 
 # Concetti LAB01
 

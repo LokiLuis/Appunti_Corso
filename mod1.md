@@ -2312,3 +2312,44 @@ Una piccola sequenza di test:
 * 404
 * JSON malformato
 
+## Chiarimenti Lab05
+
+In un'**API REST**, un endpoint è l'indirizzo specifico (URL) attraverso il quale un sistema può accedere a una determinata risorsa o funzionalità di un server. 
+Immaginiamolo come l'indirizzo di casa di un dato specifico: se vuoi recuperare le informazioni di un utente o pubblicare un nuovo post, devi sapere "dove" bussare nel sistema. 
+
+**Caratteristiche principali**
+
+* Struttura URL: È un percorso unico, ad esempio https://api.esempio.com.
+* Interazione tramite Metodi HTTP: Ogni endpoint reagisce in modo diverso a seconda del "verbo" usato nella richiesta:
+* GET: Per leggere i dati (es. visualizzare una lista).
+   * POST: Per creare nuovi dati (es. registrare un nuovo utente).
+   * PUT/PATCH: Per aggiornare dati esistenti.
+   * DELETE: Per eliminare una risorsa.
+* Punto di Contatto: È il confine dove il software client (come un'app o un browser) comunica con il software server. 
+
+Esempio pratico
+Se stai usando l'API di un servizio meteo, potresti avere questi endpoint:
+
+   1. GET /meteo/milano → Ti restituisce le previsioni per Milano.
+   2. GET /meteo/roma → Ti restituisce le previsioni per Roma.
+
+In sintesi, mentre l'API è l'intero sistema di regole e interfacce, gli endpoint sono i singoli punti di accesso che compongono quel sistema. 
+
+**Gli endpoint di un servizio Rest hanno a che fare con il routing in programmazione?**
+
+
+Il concetto di endpoint e quello di routing sono due facce della stessa medaglia: ha a che fare con il routing in programmazione?
+
+* Il Routing è il meccanismo interno (il "vigile urbano"): è il codice sul server che analizza l'URL in arrivo e decide quale funzione deve gestire quella richiesta.
+* L'Endpoint è la destinazione finale (l'indirizzo sulla mappa): è il percorso pubblico che esponi all'esterno.
+
+Come lavorano insieme
+Quando scrivi il codice di una API (ad esempio in Node.js, Python, Java, .Net o PHP), definisci delle "rotte" (routes).
+Esempio concettuale:
+
+   1. L'utente chiama l'endpoint: GET /prodotti/123.
+   2. Il sistema di routing del server vede la richiesta e dice: "Ok, il percorso inizia con /prodotti, quindi devo attivare la funzione mostraDettagliProdotto() e passarle l'ID 123".
+
+In sintesi:
+Il routing è il processo di instradamento (la logica), mentre l'endpoint è il punto di arrivo di quel processo (l'URL specifico). Senza routing, il server non saprebbe quale endpoint corrisponde a quale pezzo di codice.
+

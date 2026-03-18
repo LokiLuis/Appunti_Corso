@@ -2353,3 +2353,1312 @@ Esempio concettuale:
 In sintesi:
 Il routing è il processo di instradamento (la logica), mentre l'endpoint è il punto di arrivo di quel processo (l'URL specifico). Senza routing, il server non saprebbe quale endpoint corrisponde a quale pezzo di codice.
 
+
+# VM, Container, Docker, immagini, comandi fondamentali, Docker Compose, prima app containerizzata
+
+---
+
+# 1. Obiettivo della lezione
+
+Essere in grado di capire:
+
+* che cos’è una macchina virtuale
+* che cos’è un container
+* quali differenze ci sono tra i due
+* quali vantaggi e svantaggi esistono
+* che cos’è Docker
+* che cos’è un’immagine Docker
+* che cos’è un container Docker
+* come si costruisce un’immagine
+* come si esegue un container
+* come si leggono i log
+* come si usano i volumi
+* come si usano le variabili d’ambiente
+* che cos’è Docker Compose
+* come si containerizza una piccola app locale
+
+Questa lezione è la base culturale necessaria prima del LAB07 
+
+---
+
+# 2. Prima idea chiave: applicazione, ambiente, packaging
+
+Prima ancora di parlare di VM e container, devi chiarire un problema reale.
+
+Quando sviluppiamo un’applicazione, non basta avere il codice.
+Serve anche l’ambiente corretto:
+
+* sistema operativo
+* runtime
+* librerie
+* dipendenze
+* configurazione
+* porte
+* variabili d’ambiente
+
+Il problema classico è questo:
+
+```text
+Sul mio PC funziona
+Sul tuo no
+Sul server no
+In produzione rompe tutto
+```
+
+VM e container nascono anche per risolvere questo problema.
+
+---
+
+# 3. Che cos’è una VM
+
+## Definizione
+
+Una **VM, Virtual Machine**, è un computer virtuale completo che gira su un computer fisico.
+
+Ha:
+
+* CPU virtuale
+* RAM virtuale
+* disco virtuale
+* scheda di rete virtuale
+* sistema operativo completo
+
+Schema:
+
+```text
+Hardware fisico
+   ↓
+Hypervisor
+   ↓
+VM 1 → Linux
+VM 2 → Windows
+VM 3 → Ubuntu
+```
+
+---
+
+## 3.1 Che cos’è l’hypervisor
+
+L’hypervisor è il software che permette di creare e gestire VM.
+
+Esempi:
+
+* VirtualBox
+* VMware
+* Hyper-V
+* KVM
+
+L’hypervisor prende le risorse fisiche e le suddivide in macchine virtuali.
+
+---
+
+## 3.2 Esempio concreto di VM
+
+Immagina un PC Windows su cui installi VirtualBox e crei una VM Ubuntu.
+
+Dentro la VM hai:
+
+* boot Linux
+* kernel Linux
+* filesystem Linux
+* utente Linux
+* processi Linux
+* applicazioni Linux
+
+Quella VM si comporta come un vero computer autonomo.
+
+---
+
+## 3.3 Caratteristiche delle VM
+
+Una VM ha:
+
+* un sistema operativo completo
+* isolamento forte
+* maggiore consumo di risorse
+* tempi di avvio più lunghi
+
+Esempio tipico:
+
+```text
+Windows host
+ └── VM Ubuntu
+      └── Python + Flask
+```
+
+---
+
+# 4. Che cos’è un container
+
+## Definizione
+
+Un **container** è un’unità di esecuzione isolata che contiene un’applicazione e le sue dipendenze, ma **non contiene un intero sistema operativo completo**.
+
+Schema:
+
+```text
+Hardware fisico
+   ↓
+OS host
+   ↓
+Docker Engine
+   ↓
+Container 1 → app A
+Container 2 → app B
+Container 3 → app C
+```
+
+---
+
+## 4.1 Differenza chiave rispetto alla VM
+
+Un container **non virtualizza il computer intero**.
+Isola soprattutto:
+
+* processo
+* filesystem
+* rete
+* configurazione
+
+ma condivide il kernel dell’host.
+
+Questa è la differenza più importante da far capire.
+
+---
+
+## 4.2 Esempio concreto
+
+Se esegui:
+
+```bash
+docker run nginx
+```
+
+non stai avviando un nuovo sistema operativo completo.
+Stai avviando un processo nginx in un ambiente isolato.
+
+---
+
+## 4.3 Cosa c’è dentro un container
+
+Dentro un container tipicamente trovi:
+
+* applicazione
+* librerie richieste
+* filesystem minimale
+* eventuale shell
+* file di configurazione
+
+Non c’è, in genere:
+
+* boot completo
+* init system tradizionale
+* desktop
+* OS completo come in una VM
+
+---
+
+# 5. Schema visuale VM vs Container
+
+## VM
+
+```text
+Hardware
+   ↓
+Hypervisor
+   ├── VM 1
+   │    ├── Guest OS
+   │    └── App
+   ├── VM 2
+   │    ├── Guest OS
+   │    └── App
+   └── VM 3
+        ├── Guest OS
+        └── App
+```
+
+## Container
+
+```text
+Hardware
+   ↓
+OS Host
+   ↓
+Docker Engine
+   ├── Container 1 → App
+   ├── Container 2 → App
+   └── Container 3 → App
+```
+
+---
+
+# 6. Differenza tra VM e container
+
+## Definizione semplice da dire in aula
+
+* **VM** = virtualizza una macchina completa
+* **Container** = isola un processo e il suo ambiente
+
+---
+
+## Tabella di confronto
+
+| Aspetto             | VM                | Container          |
+| ------------------- | ----------------- | ------------------ |
+| Unità virtualizzata | macchina          | processo/app       |
+| Sistema operativo   | completo          | condiviso con host |
+| Peso                | alto              | basso              |
+| Avvio               | lento             | rapido             |
+| Isolamento          | forte             | più leggero        |
+| Portabilità         | buona             | molto alta         |
+| Uso tipico          | ambienti completi | microservizi/app   |
+
+---
+
+# 7. Pro e contro delle VM
+
+## Vantaggi
+
+### Isolamento forte
+
+Ogni VM ha il suo sistema operativo.
+Questo riduce l’impatto reciproco tra ambienti.
+
+### Flessibilità
+
+Puoi avere sistemi diversi sullo stesso host:
+
+* una VM Windows
+* una VM Linux
+* una VM BSD
+
+### Sicurezza
+
+L’isolamento è generalmente più forte rispetto ai container.
+
+---
+
+## Svantaggi
+
+### Più pesanti
+
+Ogni VM richiede:
+
+* disco
+* RAM
+* CPU
+* OS completo
+
+### Avvio più lento
+
+Una VM deve fare boot del sistema operativo.
+
+### Gestione più costosa
+
+Patch, aggiornamenti, spazio, backup, snapshot, tutto è più pesante.
+
+---
+
+# 8. Pro e contro dei container
+
+## Vantaggi
+
+### Leggeri
+
+Un container contiene solo ciò che serve all’applicazione.
+
+### Veloci
+
+Partono molto rapidamente.
+
+### Portabili
+
+Se l’immagine è fatta bene, gira allo stesso modo su più ambienti.
+
+### Ideali per microservizi
+
+Ogni servizio può vivere nel suo container.
+
+---
+
+## Svantaggi
+
+### Isolamento meno forte delle VM
+
+Non hai un OS completo separato.
+
+### Debug meno intuitivo per principianti
+
+Bisogna capire immagini, tag, volumi, mapping porte, rete container.
+
+### Persistenza non automatica
+
+Se non usi volumi, i dati scritti nel container possono perdersi.
+
+---
+
+# 9. Quando usare VM e quando container
+
+## VM
+
+Meglio quando ti serve:
+
+* un sistema completo
+* forte separazione
+* ambienti diversi a livello OS
+
+## Container
+
+Meglio quando ti serve:
+
+* distribuire un’app
+* fare deploy rapidi
+* avere ambienti replicabili
+* orchestrare servizi
+
+---
+
+# 10. Che cos’è Docker
+
+## Definizione
+
+Docker è una piattaforma che permette di:
+
+* costruire immagini
+* eseguire container
+* gestire rete, volumi, log e configurazione
+
+Schema:
+
+```text
+Docker CLI
+   ↓
+Docker Engine
+   ↓
+Images
+   ↓
+Containers
+```
+
+---
+
+## 10.1 Componenti principali di Docker
+
+### Docker CLI
+
+È il comando `docker` che usi da terminale.
+
+### Docker Engine
+
+È il motore che crea e gestisce container.
+
+### Docker Image
+
+È il modello, il pacchetto immutabile.
+
+### Docker Container
+
+È l’istanza in esecuzione dell’immagine.
+
+---
+
+# 11. Che cos’è una Docker Image
+
+## Definizione
+
+Una **image** è un pacchetto immutabile che contiene:
+
+* base OS minimale
+* runtime
+* librerie
+* applicazione
+* configurazione iniziale
+
+È il blueprint da cui nasce il container.
+
+---
+
+## Esempio concettuale
+
+```text
+Image = fotografia del filesystem + istruzioni di avvio
+Container = esecuzione concreta di quella fotografia
+```
+
+---
+
+## 11.1 Tag delle immagini
+
+Un’immagine si identifica spesso con:
+
+```text
+nome:tag
+```
+
+Esempi:
+
+```bash
+python:3.12-slim
+nginx:latest
+obsapp:v1
+obsapp:v2
+```
+
+Il tag serve a distinguere versioni diverse.
+
+---
+
+# 12. Che cos’è un container Docker
+
+## Definizione
+
+Un container è un’istanza avviata da un’immagine.
+
+Esempio:
+
+```bash
+docker run nginx
+```
+
+significa:
+
+* se serve, usa l’immagine nginx
+* crea un container
+* esegue il processo definito
+
+---
+
+## Esempio utile da spiegare
+
+Immagina:
+
+```text
+Image = stampo
+Container = oggetto realizzato usando quello stampo
+```
+
+Puoi avere più container dalla stessa immagine.
+
+---
+
+# 13. Che cos’è un Dockerfile
+
+## Definizione
+
+Il `Dockerfile` è il file che descrive come costruire un’immagine.
+
+Contiene istruzioni come:
+
+* immagine di base
+* copia file
+* installazione dipendenze
+* variabili ambiente
+* comando di avvio
+
+---
+
+## Esempio commentato
+
+```dockerfile
+FROM python:3.12-slim
+WORKDIR /app
+COPY src/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY src/app.py .
+ENV PORT=8000
+EXPOSE 8000
+CMD ["python","app.py"]
+```
+
+Spiegazione riga per riga:
+
+### `FROM python:3.12-slim`
+
+usa come base un’immagine Python minimale
+
+### `WORKDIR /app`
+
+imposta la directory di lavoro nel container
+
+### `COPY src/requirements.txt .`
+
+copia il file requirements dentro il container
+
+### `RUN pip install --no-cache-dir -r requirements.txt`
+
+installa le dipendenze
+
+### `COPY src/app.py .`
+
+copia il codice dell’app
+
+### `ENV PORT=8000`
+
+imposta una variabile ambiente di default
+
+### `EXPOSE 8000`
+
+documenta che l’app usa la porta 8000
+
+### `CMD ["python","app.py"]`
+
+comando da eseguire all’avvio del container
+
+---
+
+# 14. Ciclo di vita base in Docker
+
+Schema semplice:
+
+```text
+Dockerfile
+   ↓
+docker build
+   ↓
+Image
+   ↓
+docker run
+   ↓
+Container
+```
+
+---
+
+# 15. Comandi fondamentali Docker
+
+## 15.1 Verifica installazione
+
+```bash
+docker version
+docker ps
+docker compose version
+```
+
+### `docker version`
+
+mostra client e server Docker
+
+### `docker ps`
+
+mostra i container in esecuzione
+
+### `docker compose version`
+
+verifica il supporto Compose
+
+Questi sono anche i comandi di verifica richiesti nel LAB07 
+
+---
+
+## 15.2 Cercare immagini già presenti
+
+```bash
+docker images
+```
+
+Mostra:
+
+* repository
+* tag
+* image ID
+* data creazione
+* dimensione
+
+---
+
+## 15.3 Costruire una immagine
+
+```bash
+docker build -t obsapp:v1 .
+```
+
+Spiegazione:
+
+* `build` = costruisci l’immagine
+* `-t obsapp:v1` = assegna nome e tag
+* `.` = usa il contesto corrente
+
+---
+
+## 15.4 Eseguire un container
+
+```bash
+docker run obsapp:v1
+```
+
+Questo però spesso non basta, perché l’app potrebbe usare una porta.
+
+Più realisticamente:
+
+```bash
+docker run -d --name obsapp -p 8000:8000 obsapp:v1
+```
+
+Spiegazione:
+
+* `-d` = detached, gira in background
+* `--name obsapp` = assegna nome al container
+* `-p 8000:8000` = mappa porta host:container
+
+---
+
+## 15.5 Vedere i container in esecuzione
+
+```bash
+docker ps
+```
+
+Mostra container attivi.
+
+Per vedere anche quelli fermati:
+
+```bash
+docker ps -a
+```
+
+---
+
+## 15.6 Fermare un container
+
+```bash
+docker stop obsapp
+```
+
+oppure con ID container.
+
+---
+
+## 15.7 Rimuovere un container
+
+```bash
+docker rm obsapp
+```
+
+Forzare stop + rimozione:
+
+```bash
+docker rm -f obsapp
+```
+
+Nel LAB07 viene usato spesso proprio questo pattern 
+
+---
+
+## 15.8 Leggere i log del container
+
+```bash
+docker logs obsapp
+```
+
+Solo ultime righe:
+
+```bash
+docker logs --tail 20 obsapp
+```
+
+Seguire in tempo reale:
+
+```bash
+docker logs -f obsapp
+```
+
+Questo è un concetto centrale nel LAB07, dove viene chiesto esplicitamente di usare `docker logs` 
+
+---
+
+## 15.9 Entrare nel container
+
+Se disponibile una shell:
+
+```bash
+docker exec -it obsapp bash
+```
+
+oppure:
+
+```bash
+docker exec -it obsapp sh
+```
+
+Serve per esplorare il filesystem interno del container.
+
+---
+
+## 15.10 Rimuovere immagini
+
+```bash
+docker rmi obsapp:v1
+```
+
+Attenzione: non puoi rimuovere un’immagine se esistono container che la usano ancora.
+
+---
+
+# 16. Port mapping
+
+## Concetto fondamentale
+
+Se il processo nel container ascolta su porta 8000, non è detto che sia accessibile dall’host.
+
+Serve il mapping.
+
+```bash
+docker run -p 8000:8000 obsapp:v1
+```
+
+Significa:
+
+* porta 8000 dell’host
+* inoltrata alla porta 8000 del container
+
+---
+
+## Esempio di errore utile
+
+```bash
+docker run -d --name obsapp -p 8080:8000 obsapp:v1
+```
+
+Ora il servizio risponde su:
+
+```bash
+http://localhost:8080
+```
+
+e non su `http://localhost:8000`
+
+Questo è esattamente il drill sulla porta sbagliata presente nel LAB07 
+
+---
+
+# 17. Volumi
+
+## Perché servono
+
+Un container è, per natura, effimero.
+Se scrivi dati solo dentro il suo filesystem interno, potresti perderli quando il container viene rimosso.
+
+Per rendere i dati persistenti usi i volumi o i bind mount.
+
+---
+
+## Esempio
+
+```bash
+docker run -v "$(pwd)/logs/data:/data" obsapp:v2
+```
+
+Significa:
+
+* directory host `logs/data`
+* montata dentro il container come `/data`
+
+Se l’app scrive in `/data/app_events.log`, il file appare anche sull’host.
+
+Questo è uno dei punti centrali del LAB07, dove si richiede persistenza su `logs/data/app_events.log` 
+
+---
+
+## Schema
+
+```text
+Host filesystem
+  logs/data/app_events.log
+        ⇅
+Container filesystem
+        /data/app_events.log
+```
+
+---
+
+# 18. Variabili d’ambiente
+
+## Che cosa sono
+
+Le variabili ambiente permettono di configurare il comportamento dell’app senza modificare il codice.
+
+Esempio:
+
+```bash
+docker run -e PORT=9000 obsapp:v2
+```
+
+L’app legge `PORT` e si adegua.
+
+Questo compare esplicitamente nel LAB07 
+
+---
+
+## Vantaggi
+
+* configurazione flessibile
+* separazione codice/config
+* pratiche DevOps corrette
+
+---
+
+# 19. Docker Compose
+
+## Che cos’è
+
+Docker Compose serve a descrivere più configurazioni container in un file YAML, così l’avvio è ripetibile.
+
+---
+
+## Perché usarlo
+
+Con `docker run` la riga di comando può diventare lunga e fragile.
+
+Compose permette di scrivere:
+
+* immagine
+* nome container
+* porte
+* env
+* volumi
+* restart policy
+
+in modo leggibile.
+
+---
+
+## Esempio dal LAB07
+
+```yaml
+services:
+  obsapp:
+    image: obsapp:v2
+    container_name: obsapp
+    environment:
+      - PORT=8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./logs/data:/data
+    restart: unless-stopped
+```
+
+Questo file definisce il servizio `obsapp` in modo ripetibile 
+
+---
+
+## Comandi fondamentali Compose
+
+```bash
+docker compose up -d
+docker compose ps
+docker compose logs --tail 20
+docker compose down
+```
+
+Spiegazione:
+
+* `up -d` = avvia in background
+* `ps` = mostra i servizi attivi
+* `logs` = mostra i log
+* `down` = ferma e rimuove i container del progetto
+
+---
+
+# 20. Parte pratica guidata
+
+# App semplicissima in VSCode su WSL
+
+Qui ti propongo una mini app molto semplice, compatibile con la logica del LAB07.
+
+---
+
+## 20.1 Creazione struttura
+
+```bash
+mkdir -p ~/corso_obs/demo_docker/src
+cd ~/corso_obs/demo_docker
+```
+
+---
+
+## 20.2 Codice app in `src/app.py`
+
+```python
+from flask import Flask, jsonify
+import os
+
+app = Flask(__name__)
+
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok", "service": "demo-docker"})
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", "8000"))
+    app.run(host="0.0.0.0", port=port)
+```
+
+---
+
+## 20.3 File `src/requirements.txt`
+
+```text
+flask==3.0.3
+```
+
+---
+
+## 20.4 Test locale senza Docker
+
+```bash
+cd ~/corso_obs/demo_docker
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r src/requirements.txt
+python3 src/app.py
+```
+
+In un secondo terminale:
+
+```bash
+curl -s http://localhost:8000/health
+```
+
+Output atteso:
+
+```json
+{"service":"demo-docker","status":"ok"}
+```
+
+---
+
+# 21. Containerizzazione dell’app
+
+## 21.1 Dockerfile
+
+Nel root del progetto:
+
+```dockerfile
+FROM python:3.12-slim
+WORKDIR /app
+COPY src/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY src/app.py .
+ENV PORT=8000
+EXPOSE 8000
+CMD ["python","app.py"]
+```
+
+---
+
+## 21.2 Build
+
+```bash
+docker build -t demoapp:v1 .
+```
+
+---
+
+## 21.3 Run
+
+```bash
+docker rm -f demoapp 2>/dev/null || true
+docker run -d --name demoapp -p 8000:8000 demoapp:v1
+```
+
+---
+
+## 21.4 Test
+
+```bash
+docker ps
+curl -s http://localhost:8000/health
+docker logs --tail 20 demoapp
+```
+
+---
+
+# 22. Esempi di troubleshooting didattico
+
+## Caso 1: porta host sbagliata
+
+```bash
+docker rm -f demoapp
+docker run -d --name demoapp -p 8080:8000 demoapp:v1
+curl -s http://localhost:8000/health || echo FAIL
+curl -s http://localhost:8080/health
+```
+
+Spiegazione:
+
+* l’app nel container ascolta su 8000
+* l’host espone 8080
+* quindi devi interrogare 8080 sull’host
+
+Questo corrisponde al drill del LAB07 
+
+---
+
+## Caso 2: container fermo
+
+```bash
+docker ps -a
+docker logs demoapp
+```
+
+Interpretazione:
+
+* se non è in `docker ps`, forse è fermo
+* i log aiutano a capire il motivo
+
+---
+
+## Caso 3: volume non montato
+
+Se l’app scrive in `/data/file.log` ma non monti un volume:
+
+* il file resta nel container
+* se il container viene rimosso, il dato sparisce
+
+---
+
+# 23. Versioning delle immagini
+
+Nel LAB07 si lavora con `obsapp:v1` e `obsapp:v2` 
+
+Questo introduce un concetto DevOps importante: **versionare l’immagine**.
+
+Esempio:
+
+```bash
+docker build -t obsapp:v1 .
+docker build -t obsapp:v2 .
+```
+
+Puoi poi scegliere quale eseguire:
+
+```bash
+docker run -d --name obsapp -p 8000:8000 obsapp:v1
+```
+
+oppure
+
+```bash
+docker run -d --name obsapp -p 8000:8000 obsapp:v2
+```
+
+---
+
+## Rollback
+
+Se la v2 ha problemi:
+
+```bash
+docker rm -f obsapp
+docker run -d --name obsapp -p 8000:8000 obsapp:v1
+```
+
+Questa è una forma base di rollback.
+
+---
+
+# 24. Collegamento con il LAB07
+
+# Concetti preliminari e fondamentali per eseguirlo in autonomia
+
+Il LAB07 chiede di containerizzare un servizio, gestire versioni, volumi, log, env, compose e troubleshooting 
+Per eseguirlo in autonomia bisogna aver capito questi concetti.
+
+---
+
+## 24.1 Concetto: differenza tra codice sorgente e immagine
+
+Nel LAB07 il codice sta in `src/`, ma il container non legge direttamente il tuo filesystem locale come farebbe Python lanciato a mano.
+
+Bisogna:
+
+1. avere i file sorgente
+2. descrivere come impacchettarli nel Dockerfile
+3. fare build
+4. ottenere immagine
+5. eseguire il container da quell’immagine
+
+Se non si capisce questa catena, non capiremo perché modificheremo il codice ma il container continua a comportarsi come prima.
+
+---
+
+## 24.2 Concetto: build
+
+Nel LAB07 trovi:
+
+```bash
+docker build -t obsapp:v1 .
+```
+
+Questo comando non avvia l’app.
+Costruisce l’immagine.
+
+Bisogna inoltre capire bene la differenza tra:
+
+* `docker build` = costruzione
+* `docker run` = esecuzione
+
+---
+
+## 24.3 Concetto: tag v1 e v2
+
+Nel LAB07 ci sono `obsapp:v1` e `obsapp:v2` 
+
+Questo serve a far vedere:
+
+* versioni distinte della stessa app
+* confronto tra release
+* rollback
+
+È fondamentale comprendere che il tag non è una semplice decorazione.
+È una vera etichetta di versione dell’immagine.
+
+---
+
+## 24.4 Concetto: health endpoint
+
+Nel LAB07 si chiede che l’app Flask esponga `/health` 
+
+ Bisogna sapere che:
+
+* `/health` è un endpoint di controllo
+* serve a verificare se il servizio è vivo
+* è usato da monitoring, orchestratori, load balancer
+
+Quindi:
+
+```bash
+curl -s http://localhost:8000/health
+```
+
+non è una chiamata casuale. È il test più semplice per verificare il servizio.
+
+---
+
+## 24.5 Concetto: port mapping host/container
+
+Nel LAB07 compare spesso `-p 8000:8000` oppure `-p 8080:8000` 
+
+Interiorizzare questa sintassi:
+
+```text
+-p porta_host:porta_container
+```
+
+Esempio:
+
+```bash
+docker run -p 8080:8000 obsapp:v1
+```
+
+Significa:
+
+* dall’esterno chiami `localhost:8080`
+* dentro il container l’app ascolta su 8000
+
+Se non è ben chiaro, è uno dei punti che crea più confusione.
+
+---
+
+## 24.6 Concetto: logs del container
+
+Nel LAB07 si usa:
+
+```bash
+docker logs --tail 20 obsapp
+```
+
+Bisogna sapere:
+
+* il container scrive output standard
+* Docker intercetta stdout/stderr
+* `docker logs` mostra quell’output
+
+Se l’app non risponde, i log sono uno dei primi strumenti diagnostici.
+
+---
+
+## 24.7 Concetto: persistenza e volume
+
+Nel LAB07 la v2 scrive anche su `/data/app_events.log` e poi monta:
+
+```bash
+-v "$(pwd)/logs/data:/data"
+```
+
+Questo introduce un concetto fondamentale:
+**se il dato ti interessa, non lasciarlo solo nel filesystem del container**.
+
+Dobbiamo tener presente che:
+
+* il container può sparire
+* i dati persistenti devono stare fuori o su volume dedicato
+
+---
+
+## 24.8 Concetto: ENV
+
+Nel LAB07 si usa:
+
+```bash
+-e PORT=9000
+```
+
+Quindi bisogna aver chiaro che l’app può leggere il valore della porta da una variabile ambiente.
+
+È una pratica standard per rendere i container configurabili senza modificare il codice.
+
+---
+
+## 24.9 Concetto: Compose come configurazione ripetibile
+
+Nel LAB07 si crea `docker-compose.yml` con servizio, volume, env, porte, restart policy 
+
+Compose è utile perché:
+
+* evita comandi lunghi
+* riduce errori
+* rende il setup ripetibile
+* documenta l’architettura locale
+
+---
+
+## 24.10 Concetto: troubleshooting strutturato
+
+Il LAB07 chiede anche troubleshooting su due scenari 
+
+Qui ci agganciamo ai lab precedenti:
+
+* sintomo
+* ipotesi
+* test
+* causa
+* fix
+* evidenza
+
+Esempi nel contesto Docker:
+
+### Porta già in uso
+
+Sintomo: il container non parte o l’app non è raggiungibile
+Test: `docker ps`, `ss -ltnp`, `docker logs`
+
+### Volume non montato
+
+Sintomo: il file atteso non compare su host
+Test: controllare comando `docker run`, path host, path container
+
+### Container crash
+
+Sintomo: non compare in `docker ps`
+Test: `docker ps -a`, `docker logs`
+
+### ENV mancante
+
+Sintomo: l’app parte su porta diversa o fallisce
+Test: controllare `docker run`, codice app, log
+
+---
+
+

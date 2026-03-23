@@ -1,4 +1,3 @@
-````md
 # LABA02 - Azure Foundations: Resource Group, tagging e ciclo di vita delle risorse
 
 ## Obiettivo del laboratorio

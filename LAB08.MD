@@ -426,19 +426,19 @@ Questi prerequisiti sono richiesti esplicitamente dalla traccia del modulo.
 Apri WSL Ubuntu ed esegui:
 
 ```bash
-mkdir -p ~/course/lab08 && cd ~/course/lab08
+mkdir -p ~/corso_obs/NOME-REPOSITORY/lab08 && cd ~/corso_obs/NOME-REPOSITORY/lab08
 script -a cmdlog_lab08.txt
 mkdir -p docs
 ```
 
 ### Che cosa fanno questi comandi
 
-#### `mkdir -p ~/course/lab08 && cd ~/course/lab08`
+#### `mkdir -p ~/corso_obs/NOME-REPOSITORY/lab08 && cd ~/corso_obs/NOME-REPOSITORY/lab08`
 
 * `mkdir -p` crea la cartella del laboratorio
-* `~/course/lab08` è il percorso scelto
+* `~/corso_obs/NOME-REPOSITORY/lab08` è il percorso scelto
 * `&&` esegue il comando successivo solo se il primo è andato bene
-* `cd ~/course/lab08` entra nella cartella del laboratorio
+* `cd ~/corso_obs/NOME-REPOSITORY/lab08` entra nella cartella del laboratorio
 
 #### `script -a cmdlog_lab08.txt`
 
@@ -460,7 +460,7 @@ Perché la traccia richiede di usare WSL Ubuntu per creare la cartella locale e 
 
 Devi avere:
 
-* cartella `~/course/lab08`
+* cartella `~/corso_obs/NOME-REPOSITORY/lab08`
 * file `cmdlog_lab08.txt` in registrazione
 * cartella `docs`
 

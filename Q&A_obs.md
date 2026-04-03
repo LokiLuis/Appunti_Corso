@@ -21,6 +21,8 @@
 
 ## Domanda 1
 **Che cosa significa SRE?**
+SRE significa **Site Reliability Engineering**.  
+È una disciplina che applica principi di ingegneria del software alla gestione operativa dei servizi IT per renderli affidabili, misurabili e sostenibili.
 
 ## Domanda 2
 **Qual è lo scopo principale dell’SRE?**

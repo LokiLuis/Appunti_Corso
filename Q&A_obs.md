@@ -1,8 +1,8 @@
 ## Obiettivi
-Verificare che si siano compresi i **concetti fondamentali** di SRE e Observability già affrontati nel corso.
-Acronimi fondamentali che è necessario conoscere
+### Verificare che si siano compresi i **concetti fondamentali** di SRE e Observability già affrontati nel corso.
+### Acronimi fondamentali che è necessario conoscere
 
-## Elenco minimo obbligatorio
+#### Elenco minimo obbligatorio
 - **SRE** = Site Reliability Engineering
 - **SLI** = Service Level Indicator
 - **SLO** = Service Level Objective
@@ -10,7 +10,7 @@ Acronimi fondamentali che è necessario conoscere
 - **MTTD** = Mean Time To Detect
 - **MTTR** = Mean Time To Restore / Recover
 
-## Altri acronimi utili già da conoscere
+#### Altri acronimi utili già da conoscere
 - **KPI** = Key Performance Indicator
 - **CPU** = Central Processing Unit
 - **RAM** = Random Access Memory

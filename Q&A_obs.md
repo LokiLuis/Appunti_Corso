@@ -1,5 +1,23 @@
-## Obiettivo
-Verificare che si siano i **concetti fondamentali** di SRE e Observability già affrontati nel corso.
+## Obiettivi
+Verificare che si siano compresi i **concetti fondamentali** di SRE e Observability già affrontati nel corso.
+Acronimi fondamentali che è necessario conoscere
+
+## Elenco minimo obbligatorio
+- **SRE** = Site Reliability Engineering
+- **SLI** = Service Level Indicator
+- **SLO** = Service Level Objective
+- **SLA** = Service Level Agreement
+- **MTTD** = Mean Time To Detect
+- **MTTR** = Mean Time To Restore / Recover
+
+## Altri acronimi utili già da conoscere
+- **KPI** = Key Performance Indicator
+- **CPU** = Central Processing Unit
+- **RAM** = Random Access Memory
+- **HTTP** = HyperText Transfer Protocol
+- **TCP/IP** = Transmission Control Protocol / Internet Protocol
+
+# Elenco Domande
 
 ## Domanda 1
 **Che cosa significa SRE?**

@@ -66,3 +66,9 @@ Verificare che si siano i **concetti fondamentali** di SRE e Observability già 
 
 ## Domanda 22
 **Qual è la differenza tra SLA, SLO e SLI?**
+
+## Domanda 23
+**Che cos’è un error budget?**
+
+## Domanda 24
+**Perché l’error budget è importante?**

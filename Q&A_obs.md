@@ -43,16 +43,26 @@ Verificare che si siano i **concetti fondamentali** di SRE e Observability già 
 ## Domanda 14
 **Che cos’è un alert?**
 
+## Domanda 15
+**Quando un alert è utile?**
 
+## Domanda 16
+**Che cos’è l’alert fatigue?**
 
+## Domanda 17
+**Che cos’è un dashboard?**
 
+## Domanda 18
+**Che cos’è un KPI e in cosa differisce da una metrica tecnica?**
 
+## Domanda 19
+**Che cosa significa SLA?**
 
+## Domanda 20
+**Che cosa significa SLO?**
 
+## Domanda 21
+**Che cosa significa SLI?**
 
-
-
-
-
-
-
+## Domanda 22
+**Qual è la differenza tra SLA, SLO e SLI?**

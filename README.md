@@ -28,11 +28,12 @@ Puoi usare questa struttura completa:
 - Scope:
 - Workspace: law-observability
 - Query KQL:
+
 ```kql
 ContainerInstanceLog_CL
 | extend status = toint(parse_json(LogEntry_s).status)
 | summarize error_rate = todouble(countif(status >= 400)) / count()
-```
+```kql
 
 * Threshold: error_rate > 0.20
 * Evaluation frequency: 5 min

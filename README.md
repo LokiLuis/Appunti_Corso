@@ -32,7 +32,7 @@ Puoi usare questa struttura completa:
 ContainerInstanceLog_CL
 | extend status = toint(parse_json(LogEntry_s).status)
 | summarize error_rate = todouble(countif(status >= 400)) / count()
-````
+```
 
 * Threshold: error_rate > 0.20
 * Evaluation frequency: 5 min
@@ -66,7 +66,7 @@ done
 * Che cosa ho capito su Action Group:
 * Che cosa significa Fired:
 
-````
+```
 
 ---
 
@@ -78,7 +78,7 @@ Il file prevede questa consegna:
 git add docs/evidence_lab12.md
 git commit -m "[LAB12] Alerting completato"
 git push
-````
+```
 
 ### Che cosa fanno i comandi
 

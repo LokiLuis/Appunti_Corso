@@ -9,6 +9,7 @@ Nel LAB10 hai visto come rendere persistenti dati osservabili in Azure SQL.
 
 Nel LAB11 farai un passaggio molto importante: i log non verranno più letti solo “attaccandoti” alla singola risorsa, ma verranno **centralizzati in un Log Analytics Workspace** e interrogati con **KQL**, il linguaggio di query di Azure Monitor Logs.
 ---
+---
 
 <details>
 <summary><strong>⚠️ TROUBLESHOOTING - I log non arrivano nel workspace (clicca per espandere)</strong></summary>

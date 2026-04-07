@@ -105,6 +105,7 @@ Con il metodo nativo i log finiscono nella tabella **`ContainerInstanceLog_CL`**
 </details>
 
 ---
+---
 Questo laboratorio serve a capire una differenza fondamentale:
 
 - leggere i log direttamente dalla singola risorsa è utile

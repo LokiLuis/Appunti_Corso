@@ -103,6 +103,7 @@ Con il metodo nativo i log finiscono nella tabella **`ContainerInstanceLog_CL`**
 | Variabili vuote (`$RG`, `$ACI_ID`) | Reimpostale con `export`. Si perdono chiudendo il terminale |
 
 </details>
+
 ---
 Questo laboratorio serve a capire una differenza fondamentale:
 

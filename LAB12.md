@@ -254,7 +254,7 @@ Questa catena è esattamente coerente con quanto richiesto dalla traccia del fil
 
 ---
 
-# 11. Che cosa imparerai davvero
+# 11. Che cosa imparerai
 
 Alla fine del laboratorio dovrai aver capito che:
 
@@ -707,7 +707,7 @@ Secondo il file del modulo, il LAB12 è completato se risultano soddisfatti ques
 
 ---
 
-# 3. Che cosa stai imparando davvero
+# 3. Che cosa stai imparando
 
 Questo laboratorio ti insegna almeno cinque cose importanti.
 

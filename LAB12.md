@@ -23,13 +23,13 @@ Adesso fai il passo successivo: userai una query KQL come base per creare una **
 
 ## Durata stimata
 
-**4 ore** :contentReference[oaicite:2]{index=2}
+**4 ore**
 
 ---
 
 ## Cost Control - Gestione dei costi
 
-Il file del modulo specifica che nel percorso continuativo **non va eliminato il Resource Group fino al LAB14**, mentre la cancellazione del Resource Group è prevista solo come modalità standalone facoltativa. :contentReference[oaicite:3]{index=3}
+Il file del modulo specifica che nel percorso continuativo **non va eliminato il Resource Group fino al LAB14**, mentre la cancellazione del Resource Group è prevista solo come modalità standalone facoltativa. 
 
 Quindi in questo laboratorio:
 

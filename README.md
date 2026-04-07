@@ -16,7 +16,7 @@ Il file condiviso specifica che l’evidenza deve contenere almeno:
 
 Puoi usare questa struttura completa:
 
-````md
+```md
 # LAB12 - Evidence
 
 ## 1. Action Group

@@ -120,7 +120,6 @@ Al termine del laboratorio sarai in grado di:
 - usare KQL per ragionare in chiave Observability
 
 ---
----
 
 <details>
 <summary><strong>⚠️ TROUBLESHOOTING - I log non arrivano nel workspace (clicca per espandere)</strong></summary>

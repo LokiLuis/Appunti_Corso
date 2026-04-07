@@ -12,7 +12,7 @@ Nel LAB11 farai un passaggio molto importante: i log non verranno più letti sol
 ---
 
 <details>
-<summary><strong>⚠️ TROUBLESHOOTING - I log non arrivano nel workspace (clicca per espandere)</strong></summary>
+<summary><strong>⚠️ TROUBLESHOOTING - I log non arrivano nel workspace (clicca per espandere) LUIS DRAGOS ISTRATE</strong></summary>
 
 ### Problema
 

@@ -1,10 +1,4 @@
 
-* nome Action Group  
-* configurazione soglia
-* screenshot alert fired / alert history
-* breve spiegazione: perché quella soglia e cosa significa
-
-Puoi usare questa struttura completa:
 
 ````md
 # LAB12 - Evidence

@@ -66,6 +66,7 @@ done
 * Che cosa ho capito su Action Group:
 * Che cosa significa Fired:
 ```
+```
 
 ---
 

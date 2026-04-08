@@ -15,7 +15,7 @@ Usa questa struttura:
 ContainerInstanceLog_CL
 | summarize total=count() by bin(TimeGenerated, 5m)
 | render timechart
-````
+```
 
 * Screenshot allegato: SÌ/NO
 * Osservazioni:

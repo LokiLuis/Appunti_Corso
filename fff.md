@@ -1,16 +1,4 @@
-## Step 11 - Crea il file delle evidenze
 
-Il file del modulo richiede esplicitamente:
-
-* screenshot workbook (3 sezioni)
-* query SQL + output
-* confronto ragionato (3-6 righe)
-
-Crea:
-
-```text
-docs/evidence_lab13.md
-```
 
 Usa questa struttura:
 

@@ -42,7 +42,7 @@ Quindi in questo laboratorio:
 
 ## Modalità Percorso Continuativo 
 
-**NON eliminare il Resource Group fino al LAB14.** :contentReference[oaicite:4]{index=4}
+**NON eliminare il Resource Group fino al LAB14.** 
 
 ---
 

@@ -16,7 +16,7 @@ LAB12    Alerting (Alert Rule + Action Group)
   ↓
 LAB Extra — Performance Analysis + Incident Simulation  ← SEI QUI
   ↓
-LAB13    Workbooks / Dashboard
+LAB13   
 ```
 
 Nei laboratori precedenti hai già:
@@ -1132,4 +1132,3 @@ Dopo aver completato questo LAB Extra devi avere chiaro che:
 - il troubleshooting segue un metodo, non l'intuizione
 - documentare gli incidenti è una pratica professionale essenziale
 
-Questo prepara direttamente il **LAB13**, dove userai i dati analizzati qui per costruire **Workbooks e dashboard** su Azure Monitor.

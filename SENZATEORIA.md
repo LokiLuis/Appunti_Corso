@@ -42,16 +42,16 @@ echo "$ACI_PUBLIC_IP"
 Poi genera traffico misto:
 
 ```bash
-for i in {1..20}; do curl -s "http://$ACI_PUBLIC_IP:8000/health" > /dev/null; done
-for i in {1..30}; do curl -s "http://$ACI_PUBLIC_IP:8000/time" > /dev/null; done
-for i in {1..15}; do curl -s "http://$ACI_PUBLIC_IP:8000/nope" > /dev/null; done
+for i in {1..5}; do curl -s "http://$ACI_PUBLIC_IP:8000/health" > /dev/null; done
+for i in {1..10}; do curl -s "http://$ACI_PUBLIC_IP:8000/time" > /dev/null; done
+for i in {1..7}; do curl -s "http://$ACI_PUBLIC_IP:8000/nope" > /dev/null; done
 ```
 
 ### Perché questo mix
 
-- 20 chiamate a `/health` (successo)
-- 30 chiamate a `/time` (successo, endpoint più trafficato)
-- 15 chiamate a `/nope` (errore 404)
+- 5 chiamate a `/health` (successo)
+- 10 chiamate a `/time` (successo, endpoint più trafficato)
+- 7 chiamate a `/nope` (errore 404)
 
 Questo crea un dataset con distribuzione non uniforme, più realistico di un test con solo `/nope`.
 

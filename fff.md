@@ -76,6 +76,6 @@ Perché i numeri potrebbero differire tra SQL e Log Analytics?
 * Che cosa ho capito sul confronto tra fonti dati:
 * Quale visualizzazione considero più utile e perché:
 
-````cc
+````
 
----
+

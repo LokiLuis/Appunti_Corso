@@ -1,4 +1,4 @@
-````md
+
 
 # LAB13 - Evidence
 
@@ -80,4 +80,4 @@ I numeri sono differenti perché la tabella SQL requests_log contiene unicamente
 
 * Quale visualizzazione considero più utile e perché:L'Error Rate è la metrica operativamente più utile, perché non si limita a dire quanto il servizio sta lavorando, ma rivela immediatamente se sta fallendo, che è il primo campanello d'allarme per chi fa observability ed SRE.
 
-````
+

@@ -99,7 +99,6 @@ ContainerInstanceLog_CL
 - Screenshot allegati: SÌ
 - Osservazioni: ho dovuto cambiare l ora delle query siccome mezz ora è passata dal traffico che avevo generato
 
-![alt text](<Screenshot 2026-04-09 105028.png>)
 
 ![alt text](image-8.png)
 ## 5. Dashboard Grafana

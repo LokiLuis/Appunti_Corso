@@ -14,14 +14,6 @@ Fino a questo punto del corso avete:
 - fatto query **SQL** sulla tabella `requests_log`
 - impostato un alert basato sull'error rate
 
-Ora prenderemo tutti questi dati e li metteremo in una **vista grafica leggibile** — una dashboard. Non è un ornamento: è uno strumento operativo che serve a capire a colpo d'occhio come sta andando il servizio.
-
-Il workbook avrà 3 sezioni:
-1. **Total Requests** — quanto traffico arriva
-2. **Error Rate** — quanto traffico sta fallendo
-3. **Top Endpoint** — dove si concentra il traffico
-
-Poi confronteremo i dati con quelli della tabella SQL del LAB10.
 
 ---
 

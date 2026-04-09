@@ -17,39 +17,6 @@ Fino a questo punto del corso avete:
 
 ---
 
-## Step 1 — Setup locale in WSL Ubuntu
-
-Aprite il vostro terminale WSL Ubuntu e digitate:
-
-```bash
-mkdir -p ~/course/lab13 && cd ~/course/lab13
-```
-
-**Cosa fa:**
-- `mkdir -p` → crea la cartella `lab13` dentro `~/course/`. L'opzione `-p` fa sì che non dia errore se la cartella esiste già, e crea anche le cartelle intermedie se mancano
-- `&&` → esegue il secondo comando **solo se** il primo è andato a buon fine
-- `cd` → entra nella cartella appena creata
-
-Poi avviate la registrazione della sessione:
-
-```bash
-script -a cmdlog_lab13.txt
-```
-
-**Cosa fa:**
-- `script` è un comando Linux che **registra tutto quello che fate nel terminale** in un file di testo
-- `-a` → **append**, cioè aggiunge al file invece di sovrascriverlo
-- `cmdlog_lab13.txt` → è il nome del file dove viene salvata la registrazione
-- Da questo momento, ogni comando che scrivete e ogni output che vedete viene salvato automaticamente
-
-Infine create la cartella per le evidenze:
-
-```bash
-mkdir -p docs
-```
-
----
-
 ## Step 2 — Aprite Azure Monitor e create un Workbook
 
 Andate nel **portale Azure** (https://portal.azure.com).

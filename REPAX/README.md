@@ -17,15 +17,6 @@ Fino a questo punto del corso avete:
 
 ---
 
-## Prerequisiti
-
-Prima di iniziare dovete aver completato:
-- ✅ **LAB10** — avete la tabella `requests_log` nel database SQL
-- ✅ **LAB11** — avete il Log Analytics Workspace con dati ingestiti
-- ✅ La vostra **ACI** (Azure Container Instance) deve essere attiva e aver generato traffico
-
----
-
 ## Step 1 — Setup locale in WSL Ubuntu
 
 Aprite il vostro terminale WSL Ubuntu e digitate:

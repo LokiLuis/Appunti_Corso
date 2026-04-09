@@ -71,7 +71,7 @@ Il workbook deve risultare **creato e salvato**. Fate uno screenshot.
 
 Ecco come appariva il mio dopo averlo configurato:
 
-![Workbook creato — Total Requests](docs13/image.png)
+![Workbook creato — Total Requests](docs13/image.)
 
 ---
 
@@ -189,7 +189,6 @@ ContainerInstanceLog_CL
 
 Un grafico con tre linee: `total`, `errors`, e `error_rate`. Se avete generato traffico verso endpoint inesistenti (tipo `/nope`), vedrete che la linea degli errori segue quella del totale.
 
-![Error Rate — il mio risultato](docs13/image-1.png)
 
 Nel mio caso si vede che `total = 479`, `errors = 479` — praticamente tutto il traffico generato dallo script LAB12 erano chiamate a `/nope` (404).
 
@@ -238,8 +237,6 @@ ContainerInstanceLog_CL
 ### Cosa dovreste vedere
 
 Una **tabella** (non un grafico, perché non c'è `render timechart`) che elenca tutti gli endpoint con il numero di hit.
-
-![Top Endpoint — il mio risultato](docs13/image-2.png)
 
 Nel mio caso `/nope` domina con 200 hit. Notate anche le richieste a `/.env`, `/.git/config` — sono **scan automatici di bot** che tentano di trovare file sensibili. Questo è un esempio reale di come l'observability rivela anche attività inattese!
 
@@ -309,7 +306,6 @@ ORDER BY hits DESC;
 
 ### Cosa dovreste vedere
 
-![Query SQL — il mio risultato](docs13/image-3.png)
 
 Un risultato molto più piccolo rispetto a Log Analytics. Nel mio caso:
 
@@ -592,7 +588,6 @@ ContainerInstanceLog_CL
 
 ### Cosa dovreste vedere:
 
-![Verifica del dataset](docs13bis/image.png)
 
 Nella colonna `Message` dovreste vedere stringhe JSON tipo:
 
@@ -662,7 +657,6 @@ ContainerInstanceLog_CL
 ```
 → Grafico temporale.
 
-![Total Requests by Path — il mio risultato](docs13bis/image-1.png)
 
 ---
 
@@ -686,7 +680,6 @@ ContainerInstanceLog_CL
 - `where isnotnull(status)` → filtra le righe senza status code
 - `todouble(errors) / todouble(total)` → entrambi convertiti in double per sicurezza
 
-![Error Rate — il mio risultato](docs13bis/image-3.png)
 
 ---
 
@@ -708,7 +701,6 @@ Questa query **non ha** `render timechart` → restituisce una **tabella**. Non 
 
 - `tostring(payload.status)` → convertiamo in stringa perché qui lo usiamo come categoria, non come numero
 
-![Distribuzione Status Code — il mio risultato](docs13bis/image-5.png)
 
 > [!TIP]
 > **Per la presentazione:** "Questa vista mostra il peso relativo dei vari status code. A differenza del timechart, qui vediamo la distribuzione complessiva."
@@ -749,7 +741,6 @@ ContainerInstanceLog_CL
 - P95 = ~1ms (ancora ok)
 - P99 = 5000ms (rivela il problema!)
 
-![Latenza per endpoint — il mio risultato](docs13bis/image-6.png)
 
 **Nota sui miei risultati:** Nel mio caso la latenza era quasi sempre 0ms perché nel codice `app.py` ho usato `int()` per convertire i millisecondi, che tronca i decimali. Il picco di 4ms su `/health` è dovuto al **cold start** (la prima richiesta impiega più tempo perché il container deve "svegliarsi").
 
@@ -769,7 +760,6 @@ ContainerInstanceLog_CL
 
 Questa è simile alla versione del LAB13, con in più il filtro temporale e il parsing tramite `payload`.
 
-![Top Endpoint — il mio risultato](docs13bis/image-7.png)
 
 ---
 
@@ -806,7 +796,6 @@ Per ogni sezione fate: **+ Add** → **Add query** → configurate il data sourc
 ### ✅ Checkpoint #1
 Il workbook avanzato deve essere salvato e contenere **5 sezioni funzionanti**.
 
-![Workbook avanzato — il mio risultato](docs13bis/image-8.png)
 
 📸 **Fate screenshot** del workbook completo.
 
@@ -920,7 +909,6 @@ grafana-observability-overview
 ### ✅ Checkpoint #2
 La dashboard deve contenere **3 pannelli funzionanti**.
 
-![Dashboard Grafana — il mio risultato](docs13bis/image-9.png)
 
 > [!NOTE]
 > Nel mio caso ho usato `24h` come time range perché era passato più di mezz'ora dalla generazione del traffico. Potete cambiare il time range dal selettore in alto a destra nella dashboard Grafana (es. "Last 6 hours").

@@ -123,9 +123,7 @@ Aggiungendo Grafana al confronto tra database SQL e Log Analytics, emerge un con
 - Endpoint:  https://amgobs0409112217-deh6cnb4cvbfgjc2.weu.grafana.azure.com
 - Problemi riscontrati: nessuno
 - Soluzione adottata: -
-![alt text](image-10.png)
-![alt text](image-11.png)
-![alt text](image-12.png)
+
 ## 9. Note finali
 
 - **Che cosa ho capito sul rapporto tra query e visualizzazione:** Ho capito che scrivere una query sintatticamente corretta è solo metà del lavoro. La vera observability richiede che la scelta della visualizzazione sia coerente con la domanda operativa che mi sto ponendo. Se uso una tabella al posto di un timechart per cercare un picco di traffico, rischio di nascondere l'informazione. KQL estrae il dato, ma è la visualizzazione a renderlo piu comprensibile.

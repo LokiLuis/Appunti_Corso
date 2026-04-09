@@ -1,8 +1,4 @@
 # Guida Completa — LAB13 & LAB13bis
-
-> Questa guida è pensata per chi **non ha ancora fatto** questi laboratori.
-> Ogni comando e ogni passaggio è spiegato nel dettaglio.
-
 ---
 
 # 📘 LAB13 — Workbooks: Dashboard SLI e confronto SQL vs Log

@@ -1,5 +1,3 @@
-# Guida Completa — LAB13 & LAB13bis
----
 
 # 📘 LAB13 — Workbooks: Dashboard SLI e confronto SQL vs Log
 
